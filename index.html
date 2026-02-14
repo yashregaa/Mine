@@ -85,8 +85,9 @@ box-shadow:0 0 40px rgba(255,0,150,0.4);
 .slider{
 position:relative;width:300px;height:300px;
 transform-style:preserve-3d;
-animation:rotate 25s linear infinite;
+animation:rotate 60s linear infinite;  /* slower */
 }
+
 .slider span{
 position:absolute;width:100%;height:100%;
 transform-style:preserve-3d;
@@ -109,6 +110,82 @@ box-shadow:0 0 30px #ff4d88;
 .slider{width:220px;height:220px;}
 .moon{width:80px;height:80px;}
 }
+/* 💍 Proposal Scene */
+.proposal-box{
+  width:90%;
+  max-width:500px;
+  padding:30px;
+  background:rgba(30,0,40,0.9);
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,0,150,0.6);
+}
+
+.proposal-box h2{
+  color:#ff66cc;
+  margin-bottom:20px;
+}
+
+.proposal-box p{
+  font-size:18px;
+  line-height:1.7;
+  min-height:120px;
+}
+
+.proposal-buttons{
+  margin-top:20px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.yes-btn{
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d88;
+  color:white;
+  font-size:16px;
+  box-shadow:0 0 20px #ff4d88;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .proposal-box p{
+    font-size:16px;
+  }
+}
+/* 💍 Ring Animation */
+.ring{
+  font-size:60px;
+  margin-bottom:20px;
+  animation: ringFloat 2s ease-in-out infinite;
+}
+
+@keyframes ringFloat{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-15px); }
+  100%{ transform: translateY(0px); }
+}
+/* 💖 Heart Explosion */
+.heart{
+  position:fixed;
+  font-size:20px;
+  animation: explode 1s ease-out forwards;
+  pointer-events:none;
+}
+
+@keyframes explode{
+  0%{
+    opacity:1;
+    transform:scale(1) translate(0,0);
+  }
+  100%{
+    opacity:0;
+    transform:scale(2) translate(var(--x), var(--y));
+  }
+}
+
 </style>
 </head>
 
@@ -197,7 +274,22 @@ Movie dialogue illa idhu 🎬❌ enaku thonuchi soldren dhaan 💯❤️.
   </div>
 </div>
 
+<!-- 💍 PROPOSAL SCENE -->
+<div class="section proposal" id="proposal">
+  <div class="proposal-box">
 
+    <div class="ring" id="ring">💍</div>
+
+    <h2>One Last Thing... 💌</h2>
+    <p id="proposalText"></p>
+
+    <div class="proposal-buttons" id="proposalButtons" style="display:none;">
+      <button class="yes-btn" onclick="acceptProposal()">YES 💖</button>
+      <button class="yes-btn" onclick="acceptProposal()">Obviously YES 😌</button>
+    </div>
+
+  </div>
+</div>
 
 <audio id="bgMusic" loop>
   <source src="assets/music/love.mp3" type="audio/mpeg">
@@ -231,7 +323,15 @@ function goToMessage(){
 function goToGallery(){
     document.getElementById("message").classList.remove("active");
     document.getElementById("gallery").classList.add("active");
+
+    // After 10 seconds move to proposal
+    setTimeout(()=>{
+        document.getElementById("gallery").classList.remove("active");
+        document.getElementById("proposal").classList.add("active");
+        startProposalTyping();
+    },10000);
 }
+
 
 /* 💖 Love Counter */
 const startDate=new Date("September 1, 2021");
@@ -318,6 +418,51 @@ window.addEventListener("resize",()=>{
   pcanvas.width=window.innerWidth;
   pcanvas.height=window.innerHeight;
 });
+
+function startProposalTyping(){
+  const text = "From the day I saw you, my world changed ❤️\n\nI don’t know what life will bring...\nBut I know one thing for sure...\n\nI want you beside me in every moment.\n\nWill You Marry Me? 💍❤️";
+  
+  const element = document.getElementById("proposalText");
+  let index = 0;
+
+  function type(){
+    if(index < text.length){
+      element.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type,40);
+    } else {
+      document.getElementById("proposalButtons").style.display="flex";
+    }
+  }
+  type();
+}
+
+function acceptProposal(){
+  const text = document.getElementById("proposalText");
+  const buttons = document.getElementById("proposalButtons");
+
+  text.innerHTML = "Forever Starts Now ❤️💍✨";
+  buttons.style.display="none";
+
+  // 💖 Create Heart Explosion
+  for(let i=0;i<30;i++){
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    const x = (Math.random()*2-1)*300 + "px";
+    const y = (Math.random()*2-1)*300 + "px";
+
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+    heart.style.setProperty("--x", x);
+    heart.style.setProperty("--y", y);
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=> heart.remove(),1000);
+  }
+}
 
 </script>
 
