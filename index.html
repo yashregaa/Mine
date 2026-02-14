@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#000;color:white;overflow:hidden;}
+
+canvas{position:fixed;top:0;left:0;z-index:-3;}
+#fireflies{z-index:-2;}
+#petals{z-index:-1;}
+
+.section{
+height:100vh;width:100%;position:absolute;
+display:flex;justify-content:center;align-items:center;
+flex-direction:column;opacity:0;pointer-events:none;
+transition:1s ease;
+}
+.active{opacity:1;pointer-events:auto;}
+
+/* 🌙 Moon */
+.moon{
+position:fixed;
+top:40px;
+right:40px;
+width:120px;height:120px;
+background:radial-gradient(circle at 30% 30%, #fff, #ddd 40%, #bbb 60%, #999);
+border-radius:50%;
+box-shadow:0 0 60px rgba(255,255,255,0.6);
+z-index:-1;
+}
+
+/* 💌 Envelope */
+.envelope{
+width:220px;height:150px;background:#ff4d88;
+position:relative;cursor:pointer;border-radius:5px;
+box-shadow:0 0 40px rgba(255,0,120,0.6);
+}
+.envelope:before{
+content:'';position:absolute;top:-75px;left:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-bottom:75px solid #ff1a66;
+transition:1s;
+}
+.envelope.open:before{transform:rotateX(180deg);top:-20px;}
+.cover-text{margin-top:30px;color:#ff99cc;}
+
+/* Landing */
+.landing h1{
+font-size:50px;text-align:center;
+background:linear-gradient(90deg,#ff4d88,#ff99cc);
+-webkit-background-clip:text;color:transparent;
+}
+.enter-btn,.next-btn{
+margin-top:30px;padding:12px 30px;
+border:none;border-radius:30px;
+background:#ff4d88;color:white;
+cursor:pointer;box-shadow:0 0 20px #ff4d88;
+}
+
+/* 💖 Counter */
+.counter{
+margin-top:20px;font-size:18px;color:#ff99cc;
+}
+
+/* 💬 Message */
+.message-box{
+width:85%;max-width:900px;height:75vh;
+background:rgba(20,0,30,0.85);
+border-radius:25px;padding:40px;
+overflow-y:auto;
+box-shadow:0 0 40px rgba(255,0,150,0.4);
+}
+.message-box h2{text-align:center;margin-bottom:20px;color:#ff66cc;}
+.message-box p{font-size:18px;line-height:1.8;font-weight:600;}
+
+/* 🖼 Gallery */
+.gallery{perspective:1000px;}
+.slider{
+position:relative;width:300px;height:300px;
+transform-style:preserve-3d;
+animation:rotate 25s linear infinite;
+}
+.slider span{
+position:absolute;width:100%;height:100%;
+transform-style:preserve-3d;
+}
+.slider img{
+width:100%;height:100%;object-fit:cover;
+border-radius:15px;
+box-shadow:0 0 30px #ff4d88;
+}
+@keyframes rotate{
+0%{transform:rotateY(0deg);}
+100%{transform:rotateY(360deg);}
+}
+
+/* Mobile */
+@media(max-width:768px){
+.landing h1{font-size:30px;}
+.message-box{width:95%;padding:20px;}
+.message-box p{font-size:15px;}
+.slider{width:220px;height:220px;}
+.moon{width:80px;height:80px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<canvas id="stars"></canvas>
+<canvas id="fireflies"></canvas>
+<canvas id="petals"></canvas>
+
+<!-- 💌 COVER -->
+<div class="section active" id="cover">
+<div class="envelope" onclick="openCover(this)"></div>
+<div class="cover-text">Tap to Open 💌</div>
+</div>
+
+<!-- 🌸 LANDING -->
+<div class="section landing" id="landing">
+<h1>For The Most Special Girl ❤️</h1>
+<div class="counter" id="loveCounter"></div>
+<button class="enter-btn" onclick="goToMessage()">Enter</button>
+</div>
+
+<!-- 💬 MESSAGE -->
+<div class="section" id="message">
+<div class="message-box">
+<h2>My Heart Message 💖</h2>
+<p>
+
+Onkitta remba sollanum 🥺 ana intha message la sollamudiyuma nu therla… but soldran kettuko ❤️‍🩹 onaku epdinu therla ana inga eppavume onnapathiye yosichitu inga oruthan irukan 💭💗...
+
+Naa onaku hurt aagura mathiri pesirpen 😔 ana onmela nambikkai illa nu illa 🙅‍♂️ and onmela enaku eppavume love athigama tha irukum ❤️🔥 athanala onaku edhachum sollanum nu irundha yaar neyapagam irupanganu therla ana naa iruken ok ah 🫂💞 onakaga eppavume irupen 😌🤍...
+
+Ennala ipo oru siladhu solve pannamudiyama irukkalam 🤕 ana future la onna nalla paathupen 🤞💖. Namma future konjo tough than irukum 😣 en na long distance relationship la dhan irukom 📱🌍💔.
+
+Naa matha ponunga kittala poi pesura thought la kuda vachikamatten 🚫🙅‍♂️ ana nee eppavachum overthink aachina 🤯 ennoda contact number ah onnoda mail ku sync pannirken 📲😏 nee contacts la kuda check pannikonga madam 😌✨.
+
+Kavalapadadha 😇 naa onnala vittu pogamatten 🚶‍♂️❌. Health paathukoma 🥹💊. Daily nalla sapdu 🍽️ 2 dosa 🥞, 2 chapati 🫓 apro renda vaai sapadu sapta podhuma sollu 😅❤️.
+
+Naa avlo easy ah open up aagamatten 🤐. 6-7 yrs ah akka anna kitta pesitu iruken 👨‍👩‍👧 ana avanga kitta naa edhavum sonnadhu illa 🤷‍♂️... ana enaku romba shy 😅👉👈.
+
+You are the best girl I have ever met in this world 🌎❤️🫶. Onnoda character 💕, charming smile 😊✨, onnoda height uhh 😅💫…
+
+Naa 10-12th varaikum kuda ivlo aludhadhu illa 😢 ana nee vandhadhuku aprom tha naa romba ala start pannen 😭💘.
+
+Athanala onaku edhachum thonuchina sollu illa kelu 🥺💬.
+
+Movie dialogue illa idhu 🎬❌ enaku thonuchi soldren dhaan 💯❤️.
+
+</p>
+
+</div>
+<button class="next-btn" onclick="goToGallery()">Next 💞</button>
+</div>
+
+<!-- 🖼 GALLERY -->
+<!-- 🖼 GALLERY -->
+<div class="section gallery" id="gallery">
+  <div class="slider">
+
+    <span style="transform:rotateY(0deg) translateZ(450px);">
+      <img src="assets/images/first-image.jpeg">
+    </span>
+
+    <span style="transform:rotateY(60deg) translateZ(450px);">
+      <img src="assets/images/panchalakurichi.jpeg">
+    </span>
+
+    <span style="transform:rotateY(120deg) translateZ(450px);">
+      <img src="assets/images/snap.jpeg">
+    </span>
+
+    <span style="transform:rotateY(180deg) translateZ(450px);">
+      <img src="assets/images/red-cafe.jpeg">
+    </span>
+
+    <span style="transform:rotateY(240deg) translateZ(450px);">
+      <img src="assets/images/tree-image.jpeg">
+    </span>
+
+    <span style="transform:rotateY(300deg) translateZ(450px);">
+      <img src="assets/images/whitered.jpeg">
+    </span>
+
+  </div>
+</div>
+
+
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/love.mp3" type="audio/mpeg">
+</audio>
+
+
+
+<script>
+/* Navigation */
+function openCover(el){
+    el.classList.add("open");
+
+    const music = document.getElementById("bgMusic");
+    music.play().then(()=>{
+        console.log("Music playing");
+    }).catch(error=>{
+        console.log("Autoplay blocked:", error);
+    });
+
+    setTimeout(()=>{
+        document.getElementById("cover").classList.remove("active");
+        document.getElementById("landing").classList.add("active");
+    },1000);
+}
+
+function goToMessage(){
+    document.getElementById("landing").classList.remove("active");
+    document.getElementById("message").classList.add("active");
+}
+
+function goToGallery(){
+    document.getElementById("message").classList.remove("active");
+    document.getElementById("gallery").classList.add("active");
+}
+
+/* 💖 Love Counter */
+const startDate=new Date("September 1, 2021");
+const today=new Date("February 12, 2026");
+const diff=Math.floor((today-startDate)/(1000*60*60*24));
+document.getElementById("loveCounter").innerText=
+"❤️ It's been "+diff+" days since I saw you first (Sept 1, 2021)";
+
+/* 🌌 Stars + Shooting Stars */
+const starCanvas=document.getElementById("stars");
+const sctx=starCanvas.getContext("2d");
+starCanvas.width=window.innerWidth;
+starCanvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<200;i++){
+stars.push({x:Math.random()*starCanvas.width,y:Math.random()*starCanvas.height,r:Math.random()*2});
+}
+function drawStars(){
+sctx.clearRect(0,0,starCanvas.width,starCanvas.height);
+sctx.fillStyle="white";
+stars.forEach(s=>{sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,2*Math.PI);sctx.fill();});
+}
+setInterval(drawStars,50);
+
+/* Shooting star */
+setInterval(()=>{
+sctx.beginPath();
+sctx.moveTo(Math.random()*starCanvas.width,0);
+sctx.lineTo(Math.random()*starCanvas.width+100,200);
+sctx.strokeStyle="white";
+sctx.stroke();
+},3000);
+
+/* ✨ Fireflies */
+const fcanvas=document.getElementById("fireflies");
+const fctx=fcanvas.getContext("2d");
+fcanvas.width=window.innerWidth;
+fcanvas.height=window.innerHeight;
+let flies=[];
+for(let i=0;i<50;i++){
+flies.push({x:Math.random()*fcanvas.width,y:Math.random()*fcanvas.height});
+}
+function drawFlies(){
+fctx.clearRect(0,0,fcanvas.width,fcanvas.height);
+fctx.fillStyle="yellow";
+flies.forEach(f=>{
+fctx.beginPath();
+fctx.arc(f.x,f.y,2,0,2*Math.PI);
+fctx.fill();
+f.x+=Math.random()*2-1;
+f.y+=Math.random()*2-1;
+});
+}
+setInterval(drawFlies,50);
+
+/* 🌸 Rose Petals */
+const pcanvas=document.getElementById("petals");
+const pctx=pcanvas.getContext("2d");
+pcanvas.width=window.innerWidth;
+pcanvas.height=window.innerHeight;
+let petals=[];
+for(let i=0;i<30;i++){
+petals.push({x:Math.random()*pcanvas.width,y:Math.random()*pcanvas.height});
+}
+function drawPetals(){
+pctx.clearRect(0,0,pcanvas.width,pcanvas.height);
+pctx.fillStyle="pink";
+petals.forEach(p=>{
+pctx.beginPath();
+pctx.arc(p.x,p.y,5,0,2*Math.PI);
+pctx.fill();
+p.y+=1;
+if(p.y>pcanvas.height)p.y=0;
+});
+}
+setInterval(drawPetals,50);
+window.addEventListener("resize",()=>{
+  starCanvas.width=window.innerWidth;
+  starCanvas.height=window.innerHeight;
+
+  fcanvas.width=window.innerWidth;
+  fcanvas.height=window.innerHeight;
+
+  pcanvas.width=window.innerWidth;
+  pcanvas.height=window.innerHeight;
+});
+
+</script>
+
+</body>
+</html>
